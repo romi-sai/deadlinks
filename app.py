@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
-from bs4 import BeautifulSoup
+import BeautifulSoup
 
-st.set_page_config(page_title="My Webpage", page_icon=":tada:",layout="wide")
+st.set_page_config(page_title="Deadlink Checker", page_icon=":tada:",layout="wide")
 
 
 #header
