@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-import BeautifulSoup
+import bs4
 
 st.set_page_config(page_title="Deadlink Checker", page_icon=":tada:",layout="wide")
 
@@ -35,7 +35,7 @@ def check_links(url, depth=0):
     if response.status_code == 404:
         st.warning("Broken link: " + str(url))
 
-    soup = BeautifulSoup(response.content, "html.parser")
+    soup = bs4.BeautifulSoup(response.content, "html.parser")
 
     for link in soup.find_all("a"):
         href = link.get("href")
