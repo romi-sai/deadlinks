@@ -1,6 +1,5 @@
 import streamlit as st
-import requests
-import bs4
+from deadlinks import check_links
 
 st.set_page_config(page_title="Deadlink Checker", page_icon=":tada:",layout="wide")
 
@@ -16,31 +15,6 @@ st.write("This website was created using the tutorial [here](https://www.youtube
 # Create a button to initiate the link checking
 
 st.title("Dead Link Checker (Depth = 5)")
-
-visited_links = set()  # set to keep track of visited links
-
-def check_links(url, depth=0):
-    if depth >= 5:  # maximum depth reached
-        return
-
-    if url in visited_links:  # link already visited, skip
-        return
-    visited_links.add(url)
-
-    try:
-        response = requests.get(url)
-    except requests.exceptions.RequestException:
-        return
-
-    if response.status_code == 404:
-        st.warning("Broken link: " + str(url))
-
-    soup = bs4.BeautifulSoup(response.content, "html.parser")
-
-    for link in soup.find_all("a"):
-        href = link.get("href")
-        if href and href.startswith("http"):
-            check_links(href, depth + 1)
 
 url = st.text_input("Enter URL to check for dead links:")
 
